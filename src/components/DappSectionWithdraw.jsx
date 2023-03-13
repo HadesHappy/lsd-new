@@ -80,7 +80,7 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
   return (
     <div className="dapp-section__withdraw">
       <header className="dapp-section__withdraw-header">
-        <p className="dapp-section__withdraw-title">Stake {inputToken}</p>
+        <p className="dapp-section__withdraw-title">{stakeType} {inputToken}</p>
         <p className="dapp-section__withdraw-balance">
           Balance: <span>{showBalance(data?.displayValue)} {inputToken}</span>
         </p>
