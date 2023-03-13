@@ -28,7 +28,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
           if (inputToken === 'ETH') {
             setLoading(true)
             const response = await deposit(inputValue)
-            if (response.status === 'success') {
+            if (response.status === 'Success') {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
@@ -41,7 +41,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
           else {
             setLoading(true)
             const response = await stake(inputValue, address)
-            if (response.status === 'success') {
+            if (response.status === 'Success') {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
@@ -56,7 +56,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
           if (inputToken === 'LS-ETH') {
             setLoading(true)
             const response = await withdraw(inputValue)
-            if (response.status === 'success') {
+            if (response.status === 'Success') {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
@@ -69,7 +69,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
           else {
             setLoading(true)
             const response = await unstake(inputValue)
-            if (response.status === 'success') {
+            if (response.status === 'Success') {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
