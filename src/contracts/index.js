@@ -97,7 +97,7 @@ const getTokenVeLSDContract = async () => {
   try {
     // getTotalSupply
     const veLsdTotalSupply = await veLSDContract.totalSupply()
-    const totalSupply = Number(ethers.utils.formatEther(veLsdTotalSupply.toString()))
+    const totalSupply = Number(ethers.utils.formatUnits(veLsdTotalSupply.toString(), 9))
 
     return totalSupply
   } catch (error) {
