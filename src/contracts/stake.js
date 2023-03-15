@@ -19,7 +19,6 @@ const deposit = async (amount) => {
     const tx = await contract.deposit({ value: ethers.utils.parseEther(amount.toString()) })
     const receipt = await tx.wait()
 
-    console.log('receipt: ', receipt)
     if (receipt?.status === 1)
       return {
         status: 'Success',
@@ -55,13 +54,13 @@ const withdraw = async (amount) => {
     else
       return {
         status: 'Failed',
-        error: receipt
+        error: ''
       }
   } catch (error) {
     console.log(error)
     return {
       status: 'Error',
-      error: error
+      error: error.code
     }
   }
 }
@@ -97,7 +96,7 @@ const stake = async (amount, address) => {
     console.log(error)
     return {
       status: 'Error',
-      error: error
+      error: error.code
     }
   }
 }
@@ -125,7 +124,7 @@ const unstake = async (amount) => {
     console.log(error)
     return {
       status: 'Error',
-      error: error
+      error: error.code
     }
   }
 }

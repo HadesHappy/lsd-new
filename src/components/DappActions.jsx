@@ -6,6 +6,7 @@ import { stake, unstake, deposit, withdraw } from '../contracts/stake'
 import { useSelector } from 'react-redux'
 import { useAddress } from '@thirdweb-dev/react'
 import { toast } from 'react-hot-toast'
+import { useInfo } from '../hooks/useInfo'
 
 const DappActions = ({ setIsModalVisible, isModalVisible }) => {
   const stakeType = useSelector(state => state.inputReducer.stakeType)
@@ -13,6 +14,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
   const inputValue = useSelector(state => state.inputReducer.inputValue)
 
   const address = useAddress()
+  const { minimum } = useInfo()
 
   const [text, setText] = useState('Stake now')
   const [loading, setLoading] = useState(false)
@@ -26,17 +28,22 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
       else {
         if (stakeType === 'STAKE') {
           if (inputToken === 'ETH') {
-            setLoading(true)
-            const response = await deposit(inputValue)
-            if (response.status === 'Success') {
-              toast.success('Succeed.')
-            } else {
-              if (response.status === 'Error')
-                toast.error(`${response.status}: ${response.error}.`)
-              else
-                toast.error('Transaction failed by unknown reason.')
+            if (inputValue < minimum) {
+              toast.error(`minimum deposit amount is ${minimum} ETH`)
             }
-            setLoading(false)
+            else {
+              setLoading(true)
+              const response = await deposit(inputValue)
+              if (response.status === 'Success') {
+                toast.success('Succeed.')
+              } else {
+                if (response.status === 'Error')
+                  toast.error(`${response.status}: ${response.error}.`)
+                else
+                  toast.error('Transaction failed by unknown reason.')
+              }
+              setLoading(false)
+            }
           }
           else {
             setLoading(true)
@@ -60,7 +67,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
-                toast.error(`${response.status}: Insufficient ${inputToken} balance.`)
+                toast.error(`${response.status}: ${response.error}.`)
               else
                 toast.error('Transaction failed by unknown reason.')
             }
@@ -73,7 +80,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
-                toast.error(`${response.status}: Insufficient ${inputToken} balance.`)
+                toast.error(`${response.status}: ${response.error}.`)
               else
                 toast.error('Transaction failed by unknown reason.')
             }
