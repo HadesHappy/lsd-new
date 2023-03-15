@@ -21,7 +21,7 @@ const HeroCurrencies = () => {
   const getPrices = async () => {
     let response
     response = await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Cbinancecoin%2Cbinance-peg-xrp%2Cbinance-peg-cardano%2Cbinance-peg-dogecoin%2Cmatic-network%2Csol-wormhole%2Cbinance-peg-litecoin%2Cbinance-peg-polkadot&vs_currencies=usd")
-    console.log('response: ', response)
+
     /**
      * 
      * {
@@ -66,8 +66,8 @@ const HeroCurrencies = () => {
     setMaticPrice(showPrice(response.data["matic-network"].usd))
     setSolPrice(showPrice(response.data["sol-wormhole"].usd))
     setLtcPrice(showPrice(response.data["binance-peg-litecoin"].usd))
-    setDotPrice(showPrice(response.data["binance-peg-polkadot"].usd))    
-  } 
+    setDotPrice(showPrice(response.data["binance-peg-polkadot"].usd))
+  }
   useEffect(() => {
     getPrices()
   }, []);
