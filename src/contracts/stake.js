@@ -78,7 +78,7 @@ const stake = async (amount, address) => {
       await tx1.wait()
     }
 
-    console.log(Number(ethers.utils.parseUnit(amount.toString(), 9)))
+    console.log(Number(ethers.utils.parseUnits(amount.toString(), 9)))
 
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
     const tx2 = await veLsdContract.mint(ethers.utils.parseEther(amount.toString(), 9))
