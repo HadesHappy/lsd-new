@@ -85,6 +85,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
       toast.error('Wallet is not connected')
     }
   }
+  
   useEffect(() => {
     if (stakeType === 'STAKE')
       setText('Stake now')

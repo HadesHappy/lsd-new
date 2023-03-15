@@ -13,8 +13,8 @@ export const usePrice = () => {
     axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
       .then((res) => {
         if (res.data) {
+          console.log(res.data)
           setEthPrice(res.data.ethereum.price)
-          console.log(res.data.ethereum.price)
         } else {
           console.log('no data')
         }
