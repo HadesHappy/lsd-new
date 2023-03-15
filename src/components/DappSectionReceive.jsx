@@ -42,8 +42,10 @@ const DappSectionReceive = ({ setIsModalVisible }) => {
     dispatch({ type: OUTPUT_CHANGE, payload: e.target.value })
     if (outputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if (outputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
+    } else {
+      setTokenPrice(lsdPrice)
     }
   }
 
@@ -51,17 +53,19 @@ const DappSectionReceive = ({ setIsModalVisible }) => {
     setAmount(inputValue * exchangeRate)
     if (outputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if (outputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
+    } else {
+      setTokenPrice(lsdPrice)
     }
   }, [inputValue])
 
   useEffect(() => {
     setAmount(0)
     dispatch({ type: INPUT_CHANGE, payload: 0 })
-    if (inputToken === 'ETH') {
+    if (outputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else if (inputToken === 'LS-ETH') {
+    } else if (outputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
     } else {
       setTokenPrice(lsdPrice)

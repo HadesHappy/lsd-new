@@ -52,8 +52,10 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
 
     if (inputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if (inputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
+    } else {
+      setTokenPrice(lsdPrice)
     }
   }, [outputValue])
 
@@ -62,8 +64,10 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
     dispatch({ type: INPUT_CHANGE, payload: 0 })
     if (inputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if (inputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
+    } else {
+      setTokenPrice(lsdPrice)
     }
   }, [inputToken])
 
@@ -77,8 +81,10 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
     dispatch({ type: INPUT_CHANGE, payload: data?.displayValue })
     if (inputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if (inputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
+    } else {
+      setTokenPrice(lsdPrice)
     }
   }
 
