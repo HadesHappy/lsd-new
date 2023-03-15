@@ -72,16 +72,13 @@ const stake = async (amount, address) => {
 
     const allowance = Number(await lsdContract.allowance(address, veLsd.address))
 
-    console.log('allowance: ', allowance)
     if (allowance < amount * Math.pow(10, lsdDecimal)) {
       const tx1 = await lsdContract.approve(veLsd.address, ethers.utils.parseEther(amount.toString()))
       await tx1.wait()
     }
 
-    console.log(Number(ethers.utils.parseUnits(amount.toString(), 9)))
-
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
-    const tx2 = await veLsdContract.mint(ethers.utils.parseEther(amount.toString(), 9))
+    const tx2 = await veLsdContract.mint(ethers.utils.parseUnits(amount.toString(), 9))
     const receipt = await tx2.wait()
 
     if (receipt?.status === 1)
@@ -109,7 +106,7 @@ const unstake = async (amount) => {
     const signer = getSigner()
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
     
-    const tx = await veLsdContract.burn(ethers.utils.parseEther(amount.toString(), 9))
+    const tx = await veLsdContract.burn(ethers.utils.parseUnits(amount.toString(), 9))
     const receipt = await tx.wait()
 
     if (receipt?.status === 1)
