@@ -64,7 +64,7 @@ const DappSectionReceive = ({ setIsModalVisible }) => {
     } else {
       setTokenPrice(ethPrice * rate)
     }
-  }, [inputToken])
+  }, [outputToken])
 
   const handleClick = () => {
     setIsModalVisible(true)

@@ -24,9 +24,9 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
     tokenAddress = NATIVE_TOKEN_ADDRESS
   } else if (inputToken === 'VE-LSD') {
     tokenAddress = lsdTokenVeLSD
-  } else if(inputToken === 'LS-ETH') {
+  } else if (inputToken === 'LS-ETH') {
     tokenAddress = lsdTokenLsETH
-  } else{
+  } else {
     tokenAddress = lsdToken
   }
 
@@ -47,6 +47,7 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
 
   useEffect(() => {
     setAmount(outputValue / exchangeRate)
+
     if (inputToken === 'ETH') {
       setTokenPrice(ethPrice)
     } else {

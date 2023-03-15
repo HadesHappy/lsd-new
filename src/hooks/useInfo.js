@@ -28,7 +28,6 @@ export const useInfo = () => {
       setMultiplier(multiplier)
       setMultiplierUnit(multiplierUnit)
       setOwner(owner)
-
     } catch (error) {
       console.log(error)
     }
