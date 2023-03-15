@@ -28,7 +28,7 @@ const DappFooter = () => {
           <span>{showEth(veLsdSupply)}</span> VE-LSD Token Supply
         </SwiperSlide>
         <SwiperSlide>
-          multiplier rate at <span>{showRate(multiplier / (10 ** (multiplierUnit - 2)))} %</span>
+          multiplier rate at <span>{1 + showRate(multiplier / (10 ** (multiplierUnit - 2)))} %</span>
         </SwiperSlide>
       </Swiper>
 
