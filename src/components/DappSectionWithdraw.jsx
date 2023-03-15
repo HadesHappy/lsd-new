@@ -14,7 +14,7 @@ import DappDisplayToken from './DappDisplayToken'
 
 const DappSectionWithdraw = ({ setIsModalVisible }) => {
   const { inputToken, outputToken, stakeType, inputValue, outputValue } = useStateInfo()
-  const { ethPrice } = usePrice()
+  const { ethPrice, lsdPrice } = usePrice()
   const exchangeRate = useExchangeRate()
   const [tokenPrice, setTokenPrice] = useState(0)
   const { rate } = useLsdBalance()
@@ -40,8 +40,10 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
     dispatch({ type: INPUT_CHANGE, payload: e.target.value })
     if (inputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if(inputToken === 'LS-ETH'){
       setTokenPrice(ethPrice * rate)
+    } else{
+      setTokenPrice(lsdPrice)
     }
   }
 

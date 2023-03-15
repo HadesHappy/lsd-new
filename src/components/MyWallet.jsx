@@ -9,7 +9,7 @@ import { useLsdBalance } from '../hooks/useLsdBalance'
 
 const EthBalance = () => {
   const { data, isLoading } = useBalance(NATIVE_TOKEN_ADDRESS)
-  const { ethPrice } = usePrice()
+  const { ethPrice, lsdPrice } = usePrice()
   
   return (
     <div className="connect-wallet__balance-item">

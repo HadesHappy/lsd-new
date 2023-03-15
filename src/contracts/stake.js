@@ -105,6 +105,7 @@ const unstake = async (amount) => {
   try {
     const signer = getSigner()
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
+    console.log(ethers.utils.parseEther(amount.toString(), 9))
     const tx = await veLsdContract.burn(ethers.utils.parseEther(amount.toString(), 9))
     const receipt = await tx.wait()
 

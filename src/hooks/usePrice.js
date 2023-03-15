@@ -4,13 +4,17 @@ import { useStateInfo } from './useStateInfo'
 
 export const usePrice = () => {
   const [ethPrice, setEthPrice] = useState()
+  const [lsdPrice, setLsdPrice] = useState()
+
   const { inputValue, outputValue } = useStateInfo()
 
+  // "https://api.binance.com/api/v3/ticker/price?symbol=ETHBUSD"
   useEffect(() => {
-    axios.get("https://api.binance.com/api/v3/ticker/price?symbol=ETHBUSD")
+    axios.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
       .then((res) => {
         if (res.data) {
-          setEthPrice(res.data.price)
+          setEthPrice(res.data.ethereum.price)
+          console.log(res.data.ethereum.price)
         } else {
           console.log('no data')
         }
@@ -18,8 +22,20 @@ export const usePrice = () => {
       .catch((error) => {
         console.log(error)
       })
+
+    axios.get("https://api.coingecko.com/api/v3/simple/price?ids=liquid-staking-derivative&vs_currencies=usd").then((res) => {
+      if (res.data) {
+        setLsdPrice(`${res.data["liquid-staking-derivative"].usd}`)
+      } else {
+        console.log('no data')
+      }
+    }
+    )
+      .catch((error) => {
+        console.log(error)
+      })
   }, [inputValue, outputValue])
 
-  return { ethPrice }
+  return { ethPrice, lsdPrice }
 }
 

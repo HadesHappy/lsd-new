@@ -15,7 +15,7 @@ import DappDisplayToken from './DappDisplayToken'
 
 const DappSectionReceive = ({ setIsModalVisible }) => {
   const dispatch = useDispatch()
-  const { ethPrice } = usePrice()
+  const { ethPrice, lsdPrice } = usePrice()
   const { rate } = useLsdBalance()
 
   const { inputToken, outputToken, stakeType, inputValue, outputValue } = useStateInfo()
@@ -59,10 +59,12 @@ const DappSectionReceive = ({ setIsModalVisible }) => {
   useEffect(() => {
     setAmount(0)
     dispatch({ type: INPUT_CHANGE, payload: 0 })
-    if (outputToken === 'ETH') {
+    if (inputToken === 'ETH') {
       setTokenPrice(ethPrice)
-    } else {
+    } else if (inputToken === 'LS-ETH') {
       setTokenPrice(ethPrice * rate)
+    } else {
+      setTokenPrice(lsdPrice)
     }
   }, [outputToken])
 
