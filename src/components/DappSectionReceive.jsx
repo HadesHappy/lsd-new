@@ -7,7 +7,7 @@ import { showBalance, showPrice } from '../utils/common'
 import { useExchangeRate } from '../hooks/useExchangeRate'
 import { useStateInfo } from '../hooks/useStateInfo'
 import { NATIVE_TOKEN_ADDRESS } from '@thirdweb-dev/sdk'
-import { lsdTokenLsETH, lsdTokenVeLSD } from '../utils/constants'
+import { lsdTokenLsETH, lsdTokenVeLSD, lsdToken } from '../utils/constants'
 import { useBalance } from '@thirdweb-dev/react'
 import { useLsdBalance } from '../hooks/useLsdBalance'
 
@@ -29,8 +29,10 @@ const DappSectionReceive = ({ setIsModalVisible }) => {
     tokenAddress = NATIVE_TOKEN_ADDRESS
   } else if (outputToken === 'VE-LSD') {
     tokenAddress = lsdTokenVeLSD
-  } else {
+  } else if (outputToken === 'LS-ETH') {
     tokenAddress = lsdTokenLsETH
+  } else {
+    tokenAddress = lsdToken
   }
 
   const { data, isLoading } = useBalance(tokenAddress)

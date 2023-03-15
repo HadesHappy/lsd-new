@@ -2,6 +2,8 @@ import { ethers } from 'ethers'
 import depositPool from './abis/depositPool.json'
 import lsEth from './abis/tokenLsETH.json'
 import veLsd from './abis/tokenVELSD.json'
+import lsd from './abis/tokenLsd.json'
+import { lsdDecimal } from '../utils/constants'
 
 const getSigner = () => {
   const walletProvider = new ethers.providers.Web3Provider(window.ethereum)
@@ -66,17 +68,17 @@ const withdraw = async (amount) => {
 const stake = async (amount, address) => {
   try {
     const signer = getSigner()
-    const lsEthContract = new ethers.Contract(lsEth.address, lsEth.abi, signer)
+    const lsdContract = new ethers.Contract(lsd.address, lsd.abi, signer)
 
-    const allowance = await lsEthContract.allowance(address, veLsd.address)
+    const allowance = Number(await lsdContract.allowance(address, veLsd.address))
 
-    if (allowance < ethers.utils.parseEther(amount.toString())) {
-      const tx1 = await lsEthContract.approve(veLsd.address, ethers.utils.parseEther(amount.toString()))
+    if (allowance < amount * Math.pow(10, lsdDecimal)) {
+      const tx1 = await lsdContract.approve(veLsd.address, ethers.utils.parseEther(amount.toString()))
       await tx1.wait()
     }
 
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
-    const tx2 = await veLsdContract.mint(ethers.utils.parseEther(amount.toString()))
+    const tx2 = await veLsdContract.mint(ethers.utils.parseEther(amount.toString(), 9))
     const receipt = await tx2.wait()
 
     if (receipt?.status === 1)
@@ -103,7 +105,7 @@ const unstake = async (amount) => {
   try {
     const signer = getSigner()
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
-    const tx = await veLsdContract.burn(ethers.utils.parseEther(amount.toString()))
+    const tx = await veLsdContract.burn(ethers.utils.parseEther(amount.toString(), 9))
     const receipt = await tx.wait()
 
     if (receipt?.status === 1)

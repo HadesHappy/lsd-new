@@ -32,7 +32,7 @@ const DappSectionHeader = () => {
     dispatch({ type: STAKE_TYPE, payload: 'UNSTAKE' })
     dispatch({ type: INPUTTOKEN, payload: 'LS-ETH' })
     dispatch({ type: OUTPUTTOKEN, payload: 'ETH' })
-    
+
   }
 
   return (

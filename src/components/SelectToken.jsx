@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { INPUTTOKEN, OUTPUTTOKEN } from '../store/constants'
 import { useBalance } from '@thirdweb-dev/react'
 import { NATIVE_TOKEN_ADDRESS } from '@thirdweb-dev/sdk'
-import { lsdTokenLsETH, lsdTokenVeLSD } from '../utils/constants'
+import { lsdTokenLsETH, lsdTokenVeLSD, lsdToken } from '../utils/constants'
 import { showBalance } from '../utils/common'
 
 const ETHItem = ({ setIsModalVisible }) => {
@@ -36,6 +36,37 @@ const ETHItem = ({ setIsModalVisible }) => {
   )
 }
 
+const LSDTokenItem = ({ setIsModalVisible }) => {
+  const dispatch = useDispatch()
+  const stakeType = useSelector(state => state.inputReducer.stakeType)
+  const trigger = useSelector(state => state.inputReducer.trigger)
+
+  const { data, isLoading } = useBalance(lsdToken)
+
+  const handleLsdTokenClick = () => {
+    if (trigger === 'INPUT') {
+      dispatch({ type: INPUTTOKEN, payload: 'LSD' })
+      dispatch({ type: OUTPUTTOKEN, payload: 'VE-LSD' })
+    }
+    else {
+      dispatch({ type: INPUTTOKEN, payload: 'VE-LSD' })
+      dispatch({ type: OUTPUTTOKEN, payload: 'LSD' })
+    }
+    setIsModalVisible(false)
+  }
+
+  return (
+    <li className="select-token__search-result-item" onClick={handleLsdTokenClick} >
+      <img src="img/coins/lseth.png" alt='lseth' />
+      <p className="token__info">
+        <b className="token__info-name">LSD</b>
+        <span className="token__info-abbr">Liquid Staking Derivatives</span>
+      </p>
+      <b className="token__info-amount">{showBalance(Number(data?.displayValue))}</b>
+    </li>
+  )
+}
+
 const LSETHItem = ({ setIsModalVisible }) => {
   const dispatch = useDispatch()
   const stakeType = useSelector(state => state.inputReducer.stakeType)
@@ -44,29 +75,19 @@ const LSETHItem = ({ setIsModalVisible }) => {
   const { data, isLoading } = useBalance(lsdTokenLsETH)
 
   const handleLsEthClick = () => {
-    if (stakeType === 'STAKE') {
-      if (trigger === 'INPUT') {
-        dispatch({ type: INPUTTOKEN, payload: 'LS-ETH' })
-        dispatch({ type: OUTPUTTOKEN, payload: 'VE-LSD' })
-      } else {
-        dispatch({ type: INPUTTOKEN, payload: 'ETH' })
-        dispatch({ type: OUTPUTTOKEN, payload: 'LS-ETH' })
-      }
+    if (trigger === 'INPUT') {
+      dispatch({ type: INPUTTOKEN, payload: 'LS-ETH' })
+      dispatch({ type: OUTPUTTOKEN, payload: 'ETH' })
     } else {
-      if (trigger === 'INPUT') {
-        dispatch({ type: INPUTTOKEN, payload: 'LS-ETH' })
-        dispatch({ type: OUTPUTTOKEN, payload: 'ETH' })
-      } else {
-        dispatch({ type: INPUTTOKEN, payload: 'VE-LSD' })
-        dispatch({ type: OUTPUTTOKEN, payload: 'LS-ETH' })
-      }
+      dispatch({ type: INPUTTOKEN, payload: 'ETH' })
+      dispatch({ type: OUTPUTTOKEN, payload: 'LS-ETH' })
     }
     setIsModalVisible(false)
   }
 
   return (
     <li className="select-token__search-result-item" onClick={handleLsEthClick} >
-      <img src="img/coins/lseth.png" alt='lseth' />
+      <img src="img/coins/LS-ETH.png" alt='lseth' />
       <p className="token__info">
         <b className="token__info-name">LS-Eth</b>
         <span className="token__info-abbr">lsETH</span>
@@ -85,10 +106,10 @@ const VELSDItem = ({ setIsModalVisible }) => {
   const handleVeLsdClick = () => {
     if (trigger === 'INPUT') {
       dispatch({ type: INPUTTOKEN, payload: 'VE-LSD' })
-      dispatch({ type: OUTPUTTOKEN, payload: 'LS-ETH' })
+      dispatch({ type: OUTPUTTOKEN, payload: 'LSD' })
     }
     else {
-      dispatch({ type: INPUTTOKEN, payload: 'LS-ETH' })
+      dispatch({ type: INPUTTOKEN, payload: 'LSD' })
       dispatch({ type: OUTPUTTOKEN, payload: 'VE-LSD' })
     }
     setIsModalVisible(false)
@@ -96,7 +117,7 @@ const VELSDItem = ({ setIsModalVisible }) => {
 
   return (
     <li className="select-token__search-result-item" onClick={handleVeLsdClick}>
-      <img src="img/wallet-pair2.png" alt='velsd' />
+      <img src="img/coins/veLSD.png" alt='velsd' />
       <p className="token__info">
         <b className="token__info-name">VE-LSD</b>
         <span className="token__info-abbr">veLSD</span>
@@ -123,7 +144,7 @@ const SelectToken = ({ setIsModalVisible }) => {
               {trigger === 'INPUT' ?
                 <>
                   <ETHItem setIsModalVisible={setIsModalVisible} />
-                  <LSETHItem setIsModalVisible={setIsModalVisible} />
+                  <LSDTokenItem setIsModalVisible={setIsModalVisible} />
                 </>
                 :
                 <>
@@ -143,7 +164,7 @@ const SelectToken = ({ setIsModalVisible }) => {
                   :
                   <>
                     <ETHItem setIsModalVisible={setIsModalVisible} />
-                    <LSETHItem setIsModalVisible={setIsModalVisible} />
+                    <LSDTokenItem setIsModalVisible={setIsModalVisible} />
                   </>
               }
             </>

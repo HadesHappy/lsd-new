@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { usePrice } from '../hooks/usePrice'
 import { useExchangeRate } from '../hooks/useExchangeRate'
 import { useStateInfo } from '../hooks/useStateInfo'
-import { lsdTokenLsETH, lsdTokenVeLSD } from '../utils/constants'
+import { lsdTokenLsETH, lsdTokenVeLSD, lsdToken } from '../utils/constants'
 import { useLsdBalance } from '../hooks/useLsdBalance'
 
 import DappDisplayToken from './DappDisplayToken'
@@ -24,8 +24,10 @@ const DappSectionWithdraw = ({ setIsModalVisible }) => {
     tokenAddress = NATIVE_TOKEN_ADDRESS
   } else if (inputToken === 'VE-LSD') {
     tokenAddress = lsdTokenVeLSD
-  } else {
+  } else if(inputToken === 'LS-ETH') {
     tokenAddress = lsdTokenLsETH
+  } else{
+    tokenAddress = lsdToken
   }
 
   const { data, isLoading } = useBalance(tokenAddress)
