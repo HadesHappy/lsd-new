@@ -19,7 +19,7 @@ const HomeHero = () => {
           <a href="https://liquid-staking-derivatives.gitbook.io/whitepaper" target="_blank"></a>
         </footer>
       </section>
-      {/* <HeroCurrencies /> */}
+      <HeroCurrencies />
     </article>
   )
 }

@@ -58,7 +58,7 @@ const showEth = (balance) => {
     if (dotLocation === -1)
       return balance
     else {
-      return balanceString.slice(0, dotLocation + 2)
+      return balanceString.slice(0, dotLocation + 3)
     }
   }
   else

@@ -363,8 +363,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 26px;
-  margin-bottom: 56px;
+  margin: 26px;
 }
 
 .hero__footer a {
