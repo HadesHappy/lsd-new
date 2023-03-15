@@ -1,5 +1,5 @@
 {
-  "address": "0x06143452A2f8E8433BC012E91D85D7432f721960",
+  "address": "0x2B1fD79d8A76AdD79A8401B6d33cD2d672fA836F",
   "abi": [
     {
       "inputs": [
@@ -286,7 +286,7 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_lsETHAmount",
+          "name": "_lsdTokenAmount",
           "type": "uint256"
         }
       ],
