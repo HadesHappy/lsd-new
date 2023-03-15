@@ -3,9 +3,10 @@ import owner from './abis/owner.json'
 import updateBalance from './abis/updateBalance.json'
 import lsEth from './abis/tokenLsETH.json'
 import veLSD from './abis/tokenVELSD.json'
+import { rpcUrl } from "../utils/constants"
 
 const getContracts = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
 
   const ownerContract = new ethers.Contract(owner.address, owner.abi, provider)
   const balanceContract = new ethers.Contract(updateBalance.address, updateBalance.abi, provider)

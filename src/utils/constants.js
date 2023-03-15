@@ -15,6 +15,7 @@ const lido = '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'
 const uniswapRouter = '0x7a250d5630b4cf539739df2c5dacb4c659f2488d'
 const rocketDepositPool = '0x2cac916b2a963bf162f076c0a8a4a8200bcfbfb4'
 const rocketTokenRETH = '0xae78736Cd615f374D3085123A210448E74Fc6393'
+const rpcUrl = 'https://eth.llamarpc.com'
 
 export {
   lsdTokenLsETH,
@@ -31,4 +32,5 @@ export {
   uniswapRouter,
   rocketDepositPool,
   rocketTokenRETH,
+  rpcUrl,
 }
