@@ -32,7 +32,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
-                toast.error(`${response.status}: Insufficient ${inputToken} balance.`)
+                toast.error(`${response.status}: ${response.error}.`)
               else
                 toast.error('Transaction failed by unknown reason.')
             }
@@ -45,7 +45,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
               toast.success('Succeed.')
             } else {
               if (response.status === 'Error')
-                toast.error(`${response.status}: Insufficient ${inputToken} balance.`)
+                toast.error(`${response.status}: ${response.error}.`)
               else
                 toast.error('Transaction failed by unknown reason.')
             }
@@ -85,7 +85,7 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
       toast.error('Wallet is not connected')
     }
   }
-  
+
   useEffect(() => {
     if (stakeType === 'STAKE')
       setText('Stake now')

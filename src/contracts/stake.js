@@ -19,6 +19,7 @@ const deposit = async (amount) => {
     const tx = await contract.deposit({ value: ethers.utils.parseEther(amount.toString()) })
     const receipt = await tx.wait()
 
+    console.log('receipt: ', receipt)
     if (receipt?.status === 1)
       return {
         status: 'Success',
@@ -31,10 +32,10 @@ const deposit = async (amount) => {
       }
 
   } catch (error) {
-    console.log(error)
+    console.log('error: ', error.code)
     return {
       status: 'Error',
-      error: error
+      error: error.code
     }
   }
 }
@@ -105,7 +106,7 @@ const unstake = async (amount) => {
   try {
     const signer = getSigner()
     const veLsdContract = new ethers.Contract(veLsd.address, veLsd.abi, signer)
-    console.log(ethers.utils.parseEther(amount.toString(), 9))
+    
     const tx = await veLsdContract.burn(ethers.utils.parseEther(amount.toString(), 9))
     const receipt = await tx.wait()
 
