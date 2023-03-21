@@ -8,6 +8,8 @@ import { useAddress } from '@thirdweb-dev/react'
 import { toast } from 'react-hot-toast'
 import { useInfo } from '../hooks/useInfo'
 
+import { addLiquidity } from '../contracts/staking'
+
 const DappActions = ({ setIsModalVisible, isModalVisible }) => {
   const stakeType = useSelector(state => state.inputReducer.stakeType)
   const inputToken = useSelector(state => state.inputReducer.inputToken)
@@ -21,76 +23,79 @@ const DappActions = ({ setIsModalVisible, isModalVisible }) => {
 
   const handleClick = async () => {
 
-    if (address) {
-      if (inputValue === 0) {
-        toast.error(`Enter an amount to ${stakeType}`)
-      }
-      else {
-        if (stakeType === 'STAKE') {
-          if (inputToken === 'ETH') {
-            if (inputValue < minimum) {
-              toast.error(`minimum deposit amount is ${minimum} ETH`)
-            }
-            else {
-              setLoading(true)
-              const response = await deposit(inputValue)
-              if (response.status === 'Success') {
-                toast.success('Succeed.')
-              } else {
-                if (response.status === 'Error')
-                  toast.error(`${response.status}: ${response.error}.`)
-                else
-                  toast.error('Transaction failed by unknown reason.')
-              }
-              setLoading(false)
-            }
-          }
-          else {
-            setLoading(true)
-            const response = await stake(inputValue, address)
-            if (response.status === 'Success') {
-              toast.success('Succeed.')
-            } else {
-              if (response.status === 'Error')
-                toast.error(`${response.status}: ${response.error}.`)
-              else
-                toast.error('Transaction failed by unknown reason.')
-            }
-            setLoading(false)
-          }
-        }
-        else {
-          if (inputToken === 'LS-ETH') {
-            setLoading(true)
-            const response = await withdraw(inputValue)
-            if (response.status === 'Success') {
-              toast.success('Succeed.')
-            } else {
-              if (response.status === 'Error')
-                toast.error(`${response.status}: ${response.error}.`)
-              else
-                toast.error('Transaction failed by unknown reason.')
-            }
-            setLoading(false)
-          }
-          else {
-            setLoading(true)
-            const response = await unstake(inputValue)
-            if (response.status === 'Success') {
-              toast.success('Succeed.')
-            } else {
-              if (response.status === 'Error')
-                toast.error(`${response.status}: ${response.error}.`)
-              else
-                toast.error('Transaction failed by unknown reason.')
-            }
-            setLoading(false)
-          }
-        }
-      }
-    } else {
-      toast.error('Wallet is not connected')
-    }
+    const response = await addLiquidity(0.05, 30, address);
+    console.log('response: ', response);
+
+    // if (address) {
+    //   if (inputValue === 0) {
+    //     toast.error(`Enter an amount to ${stakeType}`)
+    //   }
+    //   else {
+    //     if (stakeType === 'STAKE') {
+    //       if (inputToken === 'ETH') {
+    //         if (inputValue < minimum) {
+    //           toast.error(`minimum deposit amount is ${minimum} ETH`)
+    //         }
+    //         else {
+    //           setLoading(true)
+    //           const response = await deposit(inputValue)
+    //           if (response.status === 'Success') {
+    //             toast.success('Succeed.')
+    //           } else {
+    //             if (response.status === 'Error')
+    //               toast.error(`${response.status}: ${response.error}.`)
+    //             else
+    //               toast.error('Transaction failed by unknown reason.')
+    //           }
+    //           setLoading(false)
+    //         }
+    //       }
+    //       else {
+    //         setLoading(true)
+    //         const response = await stake(inputValue, address)
+    //         if (response.status === 'Success') {
+    //           toast.success('Succeed.')
+    //         } else {
+    //           if (response.status === 'Error')
+    //             toast.error(`${response.status}: ${response.error}.`)
+    //           else
+    //             toast.error('Transaction failed by unknown reason.')
+    //         }
+    //         setLoading(false)
+    //       }
+    //     }
+    //     else {
+    //       if (inputToken === 'LS-ETH') {
+    //         setLoading(true)
+    //         const response = await withdraw(inputValue)
+    //         if (response.status === 'Success') {
+    //           toast.success('Succeed.')
+    //         } else {
+    //           if (response.status === 'Error')
+    //             toast.error(`${response.status}: ${response.error}.`)
+    //           else
+    //             toast.error('Transaction failed by unknown reason.')
+    //         }
+    //         setLoading(false)
+    //       }
+    //       else {
+    //         setLoading(true)
+    //         const response = await unstake(inputValue)
+    //         if (response.status === 'Success') {
+    //           toast.success('Succeed.')
+    //         } else {
+    //           if (response.status === 'Error')
+    //             toast.error(`${response.status}: ${response.error}.`)
+    //           else
+    //             toast.error('Transaction failed by unknown reason.')
+    //         }
+    //         setLoading(false)
+    //       }
+    //     }
+    //   }
+    // } else {
+    //   toast.error('Wallet is not connected')
+    // }
   }
 
   useEffect(() => {
